@@ -1,33 +1,10 @@
 {
-  "platform": {
-    "name": "github",
-    "check_url": "https://github.com/{username}",
-    "available_status": [404, 410],
-    "taken_status": [200, 301, 302],
-    "claim": {
-      "enabled": true,
-      "endpoint": "https://github.com/signup_check/username",
-      "method": "POST",
-      "referer": "https://github.com/signup",
-      "headers": {
-        "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      "payload": {
-        "value": "{username}",
-        "authenticity_token": "YOUR_FRESH_CSRF_TOKEN"
-      },
-      "success_status": [200],
-      "success_match": "\"available\": true"
-    }
-  },
   "network": {
     "proxy_file": "proxies.txt",
     "proxy_mode": "random",
     "rotate_on_rate_limit": true,
     "timeout": 8,
-    "connections": 200,
+    "connections": 250,
     "keepalive": 30,
     "retries": 2
   },
@@ -35,20 +12,11 @@
     "session_token": "",
     "cookie": ""
   },
-  "rate_limit": {
-    "cooldown_max": 30,
-    "scale": 1.5,
-    "throttle_headers": ["X-RateLimit-Remaining", "X-Throttle", "Retry-After"]
-  },
   "sniper": {
-    "interval": 0.35,
-    "jitter": true
-  },
-  "username_policy": {
-    "min_chars": 3,
-    "max_chars": 39,
-    "mode": "letters_and_numbers",
-    "blocklist": []
+    "default_min_len": 3,
+    "default_max_len": 5,
+    "default_charset": "letters_and_numbers",
+    "default_auto_claim": false
   },
   "auth": {
     "enabled": true,
@@ -56,7 +24,8 @@
     "session_file": "session.json",
     "redeemed_file": "redeemed.json",
     "trial_minutes": 10,
-    "thread_cap_fraction": 0.5
+    "trial_threads": 100,
+    "premium_threads": 250
   },
   "notification": {
     "discord_webhook": "",
