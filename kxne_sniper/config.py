@@ -26,7 +26,21 @@ DEFAULT_CONFIG: dict[str, Any] = {
                    "throttle_headers": ["X-RateLimit-Remaining", "X-Throttle", "Retry-After"]},
     "sniper": {"interval": 0.35, "jitter": True},
     "notification": {"discord_webhook": "", "telegram_token": "", "telegram_chat_id": ""},
-}
+    },
+    "auth": {
+        "enabled": True,
+        "users_file": "users.json",
+        "session_file": "session.json",
+        "redeemed_file": "redeemed.json",
+        "trial_minutes": 10,
+        "thread_cap_fraction": 0.5,
+    },
+    "username_policy": {
+        "min_chars": 3,
+        "max_chars": 20,
+        "mode": "letters_and_numbers",
+        "blocklist": [],
+    }
 
 
 def _deep_merge(base: dict, override: dict) -> dict:
