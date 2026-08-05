@@ -5,7 +5,7 @@ import time
 
 import aiohttp
 
-from .config import Config
+from config import Config
 
 
 class Notifier:
