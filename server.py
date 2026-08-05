@@ -9,11 +9,11 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from engine.auth import AuthManager
-from engine.config import Config
-from engine.github import GitHubEngine
-from engine.license import LicenseManager
-from engine.redeem import RedemptionManager
+from auth import AuthManager
+from config import Config
+from github import GitHubEngine
+from license import LicenseManager
+from redeem import RedemptionManager
 
 cfg = Config()
 auth = AuthManager(
