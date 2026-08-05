@@ -1,17 +1,54 @@
 {
-  "threads": 50,
-  "delay_ms": 0,
-  "proxy_mode": "rotate",
-  "discord_webhook": "",
-  "telegram_bot_token": "",
-  "telegram_chat_id": "",
-  "accounts": {
-    "spotify": { "client_id": "", "client_secret": "", "access_token": "" },
-    "roblox":  { "cookie": "" },
-    "discord": { "token": "" },
-    "tiktok":  { "session_id": "" },
-    "youtube": { "cookie": "" }
+  "platform": {
+    "name": "github",
+    "check_url": "https://github.com/{username}",
+    "check_method": "GET",
+    "available_status": [404],
+    "taken_status": [200],
+    "custom_available_match": null,
+    "claim": {
+      "enabled": true,
+      "endpoint": "https://github.com/signup_check/username",
+      "method": "POST",
+      "referer": "https://github.com/signup",
+      "headers": {
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      "payload": {
+        "value": "{username}",
+        "authenticity_token": "YOUR_FRESH_CSRF_TOKEN"
+      },
+      "success_status": [200, 201, 202],
+      "success_match": null
+    }
   },
-  "targets": [],
-  "mode": "checker"
+  "network": {
+    "proxy_file": "proxies.txt",
+    "proxy_mode": "random",
+    "rotate_on_rate_limit": true,
+    "timeout": 8,
+    "connections": 200,
+    "keepalive": 30,
+    "retries": 2
+  },
+  "headers": {
+    "session_token": "",
+    "cookie": ""
+  },
+  "rate_limit": {
+    "cooldown_max": 30,
+    "scale": 1.5,
+    "throttle_headers": ["X-RateLimit-Remaining", "X-Throttle", "Retry-After"]
+  },
+  "sniper": {
+    "interval": 0.35,
+    "jitter": true
+  },
+  "notification": {
+    "discord_webhook": "",
+    "telegram_token": "",
+    "telegram_chat_id": ""
+  }
 }
