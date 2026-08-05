@@ -1,0 +1,17 @@
+{
+  "threads": 50,
+  "delay_ms": 0,
+  "proxy_mode": "rotate",
+  "discord_webhook": "",
+  "telegram_bot_token": "",
+  "telegram_chat_id": "",
+  "accounts": {
+    "spotify": { "client_id": "", "client_secret": "", "access_token": "" },
+    "roblox":  { "cookie": "" },
+    "discord": { "token": "" },
+    "tiktok":  { "session_id": "" },
+    "youtube": { "cookie": "" }
+  },
+  "targets": [],
+  "mode": "checker"
+}
