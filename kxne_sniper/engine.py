@@ -36,17 +36,19 @@ class SniperEngine:
         self._write_lock = asyncio.Lock()
 
     # ---- lifecycle -----------------------------------------------------
-    async def start(self) -> None:
-        net = self.cfg.get("network", {})
-        pool = ProxyPool(net.get("proxy_file", "proxies.txt"), net.get("proxy_mode", "random"))
-        self.stats.proxy_count = len(pool)
-        self.stats.pool_size = int(net.get("connections", 200))
-        self.http = HttpClient(
-            pool,
-            timeout=float(net.get("timeout", 8)),
-            conn_limit=self.stats.pool_size,
-            keepalive=float(net.get("keepalive", 30)),
-            retries=int(net.get("retries", 2)),
+     async def _license_active(self) -> bool:
+        if not self.license_provider:
+            return True
+        premium, remaining = self.license_provider()
+        self.stats.license_label = "PREMIUM" if premium else "TRIAL"
+        self.stats.trial_remaining = remaining or 0.0
+        if premium:
+            return True
+        if remaining is not None and remaining <= 0:
+            self.stats.state = "TRIAL EXPIRED"
+            self.stats.add_event("Trial expired — premium required to continue", "bold red")
+            return False
+        return True
         )
         self.sem = asyncio.Semaphore(self.stats.pool_size)
         self.stats.add_event(
