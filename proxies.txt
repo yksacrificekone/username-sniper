@@ -1,0 +1,4 @@
+# http/https/socks5 — one per line. scheme optional (http:// assumed)
+# 123.45.67.89:8080
+# user:pass@123.45.67.89:3128
+# socks5://127.0.0.1:9050
