@@ -11,6 +11,9 @@ class Stats:
     total_checks: int = 0
     available: int = 0
     taken: int = 0
+    license_label: str = "TRIAL"
+    trial_remaining: float = 0.0
+    skipped: int = 0
     errors: int = 0
     rate_limited: int = 0
     claims_attempted: int = 0
