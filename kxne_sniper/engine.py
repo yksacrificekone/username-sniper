@@ -13,12 +13,18 @@ from .ratelimit import RateLimiter
 from .stats import Stats
 
 
+from .filter import UsernameFilter  # add import
+
 class SniperEngine:
-    def __init__(self, cfg: Config, ui, notifier: Notifier):
+    def __init__(self, cfg: Config, ui, notifier: Notifier,
+                 license_provider=None, username_filter: UsernameFilter | None = None):
         self.cfg = cfg
         self.ui = ui
         self.notifier = notifier
+        self.license_provider = license_provider
+        self.username_filter = username_filter
         self.stats = Stats()
+        ...
         self.http: HttpClient | None = None
         self.sem: asyncio.Semaphore | None = None
         self.rate_limiter = RateLimiter(
