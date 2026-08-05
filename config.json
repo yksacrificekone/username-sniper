@@ -2,10 +2,8 @@
   "platform": {
     "name": "github",
     "check_url": "https://github.com/{username}",
-    "check_method": "GET",
-    "available_status": [404],
-    "taken_status": [200],
-    "custom_available_match": null,
+    "available_status": [404, 410],
+    "taken_status": [200, 301, 302],
     "claim": {
       "enabled": true,
       "endpoint": "https://github.com/signup_check/username",
@@ -20,8 +18,8 @@
         "value": "{username}",
         "authenticity_token": "YOUR_FRESH_CSRF_TOKEN"
       },
-      "success_status": [200, 201, 202],
-      "success_match": null
+      "success_status": [200],
+      "success_match": "\"available\": true"
     }
   },
   "network": {
@@ -45,6 +43,20 @@
   "sniper": {
     "interval": 0.35,
     "jitter": true
+  },
+  "username_policy": {
+    "min_chars": 3,
+    "max_chars": 39,
+    "mode": "letters_and_numbers",
+    "blocklist": []
+  },
+  "auth": {
+    "enabled": true,
+    "users_file": "users.json",
+    "session_file": "session.json",
+    "redeemed_file": "redeemed.json",
+    "trial_minutes": 10,
+    "thread_cap_fraction": 0.5
   },
   "notification": {
     "discord_webhook": "",
