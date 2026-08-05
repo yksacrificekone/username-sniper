@@ -1,0 +1,19 @@
+/* ---- charset question ---- */
+.charset-switch { display: flex; gap: 8px; margin: 8px 0 4px; }
+.cs-btn {
+  flex: 1; padding: 10px 6px; cursor: pointer; border: 1px solid var(--line);
+  background: transparent; color: var(--dim); font-family: inherit;
+  letter-spacing: 1px; border-radius: 8px; font-size: 11px; transition: all 0.2s;
+}
+.cs-btn.active {
+  color: var(--green); border-color: var(--green);
+  box-shadow: 0 0 14px rgba(0, 255, 157, 0.35);
+}
+#charset-desc { color: var(--cyan); font-size: 12px; margin-bottom: 8px; }
+.len-row { display: flex; gap: 12px; }
+.len-row > div { flex: 1; }
+.checkbox-row {
+  display: flex; align-items: center; gap: 10px; margin: 14px 0;
+  cursor: pointer; color: var(--text); font-size: 12px; letter-spacing: 1px;
+}
+.checkbox-row input { width: auto; margin: 0; accent-color: var(--green); }
