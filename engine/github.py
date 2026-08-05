@@ -14,11 +14,11 @@ import time
 from collections import deque
 from dataclasses import dataclass, field
 
-from .config import Config
-from .headers import random_headers
-from .network import HttpClient, ProxyPool
-from .notify import Notifier
-from .ratelimit import RateLimiter
+from config import Config
+from headers import random_headers
+from network import HttpClient, ProxyPool
+from notify import Notifier
+from ratelimit import RateLimiter
 
 CHARSETS = {
     "letters": string.ascii_lowercase,
