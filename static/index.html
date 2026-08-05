@@ -1,142 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KXNE SNIPER — GitHub Combo Sniper</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Username Sniper — Vercel Ready</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<div class="bg-grid"></div>
-<div class="scanlines"></div>
+  <main class="center">
+    <header class="app-header">
+      <div class="logo">USERNAME <span>SNIPER</span></div>
+      <div class="sub">Vercel-ready username availability checker</div>
+    </header>
 
-<!-- AUTH SCREEN -->
-<div id="auth-screen" class="screen hidden">
-  <div class="auth-card">
-    <div class="logo">KXNE<span>SNIPER</span></div>
-    <div class="logo-sub">GITHUB COMBO SNIPER</div>
-    <div class="tabs">
-      <button id="tab-login" class="tab active">LOGIN</button>
-      <button id="tab-signup" class="tab">SIGNUP</button>
-    </div>
-    <form id="auth-form">
-      <input id="auth-user" type="text" placeholder="username" autocomplete="off">
-      <input id="auth-pass" type="password" placeholder="password">
-      <div id="auth-hint" class="hint">wrongintentionss → FREE PREMIUM</div>
-      <button id="auth-btn" type="submit" class="btn primary big">ENTER THE GRID</button>
-    </form>
-    <div id="auth-msg" class="auth-msg"></div>
-  </div>
-</div>
+    <section class="panel controls">
+      <h2>Sniper Controls</h2>
 
-<!-- DASHBOARD -->
-<div id="app-screen" class="screen hidden">
-  <header>
-    <div class="logo small">KXNE<span>SNIPER</span></div>
-    <div class="user-box">
-      <span id="user-name" class="user-name"></span>
-      <span id="license-badge" class="badge">TRIAL</span>
-      <span id="time-left" class="time-left">10:00</span>
-      <button id="btn-shop" class="btn ghost">PREMIUM</button>
-      <button id="btn-logout" class="btn ghost">LOGOUT</button>
-    </div>
-  </header>
-
-  <main>
-    <div class="left-col">
-      <div class="panel">
-        <h2>SNIPER CONFIG</h2>
-
-        <label>CHARSET — WHAT COMBOS TO GENERATE</label>
-        <div class="charset-switch">
-          <button id="cs-letters" class="cs-btn">LETTERS</button>
-          <button id="cs-alnum" class="cs-btn active">LETTERS + NUMBERS</button>
-          <button id="cs-all" class="cs-btn">ALL</button>
-        </div>
-        <div class="dim" id="charset-desc">a-z, 0-9</div>
-
-        <div class="len-row">
-          <div>
-            <label>MIN LENGTH</label>
-            <input id="min-len" type="number" min="1" max="39" value="3">
-          </div>
-          <div>
-            <label>MAX LENGTH</label>
-            <input id="max-len" type="number" min="1" max="39" value="5">
-          </div>
-        </div>
-
-        <label class="checkbox-row">
-          <input id="auto-claim" type="checkbox">
-          <span>AUTO-CLAIM available names <span class="dim">(needs fresh token + cookie in config.json)</span></span>
-        </label>
-
-        <label>WORKERS <span id="worker-cap" class="dim"></span></label>
-        <input id="threads-input" type="range" min="10" max="250" step="10" value="100">
-        <div class="row"><span id="threads-val" class="mono">100</span><span class="dim">checks/sec target</span></div>
-
-        <div class="row btns">
-          <button id="btn-start" class="btn primary big">▶ START SNIPING</button>
-          <button id="btn-stop" class="btn danger big" disabled>■ STOP</button>
-        </div>
-        <div id="run-msg" class="auth-msg"></div>
+      <div class="row">
+        <label>Charset</label>
+        <select id="charset">
+          <option value="letters_and_numbers">letters + numbers (a-z0-9)</option>
+          <option value="letters">letters (a-z)</option>
+          <option value="all">all (a-z0-9-)</option>
+        </select>
       </div>
 
-      <div class="panel">
-        <h2>AVAILABLE HITS <span id="hits-count" class="dim">(0)</span></h2>
-        <div id="hits-list" class="hits-list"></div>
-        <button id="btn-copy" class="btn tiny">COPY ALL</button>
-      </div>
-    </div>
-
-    <div class="right-col">
-      <div class="panel state-panel">
-        <div class="state-row">
-          <div id="state-badge" class="state-badge idle"><span class="dot"></span><span id="state-text">IDLE</span></div>
-          <div id="mode-text" class="mode-text">READY</div>
+      <div class="row two">
+        <div>
+          <label>Min length</label>
+          <input id="min-len" type="number" min="1" max="39" value="3">
         </div>
-        <div class="cps-wrap">
-          <div id="cps-num" class="cps-num">0.0</div>
-          <div class="cps-label">CHECKS / SECOND</div>
+        <div>
+          <label>Max length</label>
+          <input id="max-len" type="number" min="1" max="39" value="5">
         </div>
-        <canvas id="spark" width="560" height="90"></canvas>
       </div>
 
-      <div class="grid-4">
-        <div class="stat-card"><div class="stat-val" id="stat-checks">0</div><div class="stat-label">CHECKS</div></div>
-        <div class="stat-card green"><div class="stat-val" id="stat-avail">0</div><div class="stat-label">AVAILABLE</div></div>
-        <div class="stat-card red"><div class="stat-val" id="stat-taken">0</div><div class="stat-label">TAKEN</div></div>
-        <div class="stat-card yellow"><div class="stat-val" id="stat-errors">0</div><div class="stat-label">ERRORS</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-ratelimit">0</div><div class="stat-label">RATE LIMITED</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-workers">0/0</div><div class="stat-label">WORKERS BUSY</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-proxies">0</div><div class="stat-label">PROXIES</div></div>
-        <div class="stat-card purple"><div class="stat-val" id="stat-claims">0</div><div class="stat-label">CLAIMS WON</div></div>
+      <div class="row">
+        <label>Checks / second</label>
+        <input id="rate" type="range" min="1" max="20" value="4">
+        <div class="muted small"><span id="rate-val">4</span> checks/sec (client-driven)</div>
       </div>
 
-      <div class="panel">
-        <h2>EVENT LOG</h2>
-        <div id="event-log" class="event-log"></div>
+      <div class="row">
+        <label>Manual username</label>
+        <div class="manual-row">
+          <input id="manual" type="text" placeholder="enter username to check">
+          <button id="btn-check" class="btn primary">Check</button>
+        </div>
       </div>
-    </div>
+
+      <div class="row btns">
+        <button id="btn-start" class="btn primary big">Start Sniper</button>
+        <button id="btn-stop" class="btn danger big" disabled>Stop</button>
+        <button id="btn-clear" class="btn ghost">Clear</button>
+      </div>
+
+      <div class="muted small">Note: This frontend uses a simple serverless endpoint to probe GitHub. Vercel IPs may be rate-limited; use responsibly.</div>
+    </section>
+
+    <section class="panel results">
+      <h2>Available Names <span id="avail-count" class="dim">(0)</span></h2>
+      <div id="hits" class="hits"></div>
+
+      <h2>Activity Log</h2>
+      <div id="log" class="log"></div>
+    </section>
+
+    <footer class="foot muted">Designed for quick Vercel deployment · No auth · No auto-claim</footer>
   </main>
-</div>
 
-<!-- PREMIUM SHOP -->
-<div id="shop-modal" class="modal hidden">
-  <div class="modal-card">
-    <div class="modal-head"><h2>PREMIUM SHOP</h2><button id="shop-close" class="btn ghost">✕</button></div>
-    <p class="dim">Redeem a key for <b>unlimited time + 250 workers</b>. Each grants 30 days.</p>
-    <div class="shop-grid" id="shop-grid"></div>
-    <input id="redeem-code" type="text" placeholder="KEY  e.g.  NITRO-ABCD-EFGH-IJKL" autocomplete="off">
-    <button id="btn-redeem" class="btn primary">REDEEM</button>
-    <div id="redeem-msg" class="auth-msg"></div>
-  </div>
-</div>
-
-<div id="toast" class="toast hidden"></div>
-
-<script src="/static/app.js"></script>
+  <script src="/static/app.js"></script>
 </body>
 </html>
